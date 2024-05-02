@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="nookapp_zero_dp">0dp</dimen>
+    <dimen name="nookapp_80dp">80dp</dimen>
+    <dimen name="nookapp_font24">24sp</dimen>
+    <dimen name="nookapp_30dp">30dp</dimen>
+</resources>

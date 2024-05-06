@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/creaturesFragment"
-        android:name="com.jennysival.nookapp.ui.CreaturesFragment"
+        android:name="com.jennysival.nookapp.ui.creatures.CreaturesFragment"
         android:label="fragment_creatures"
         tools:layout="@layout/fragment_creatures" />
 </navigation>

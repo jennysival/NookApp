@@ -17,3 +17,4 @@ const val NOOKAPP_FOSSEIS = "Fósseis"
 const val NOOKAPP_GYROIDS = "Gyroids"
 
 const val NOOKAPP_FEAT_KEY = "FEAT_KEY"
+const val NOOKAPP_CREAT_KEY = "CREAT_KEY"

@@ -42,29 +42,47 @@ class CreaturesFragment : Fragment() {
 
     private fun initViewModel() {
         creaturesViewModel =
-            ViewModelProvider(this, CreaturesViewModelFactory())[CreaturesViewModel::class.java]
+            ViewModelProvider(
+                this,
+                CreaturesViewModelFactory(requireActivity())
+            )[CreaturesViewModel::class.java]
     }
 
     private fun initObserver() {
         creaturesViewModel.bugsListState.observe(this.viewLifecycleOwner) {
             when (it) {
-                is ViewState.Success -> creaturesAdapter.updateList(it.data as MutableList<BugsUiModel>)
+                is ViewState.Success -> creaturesAdapter.addBugsList(it.data as MutableList<BugsUiModel>)
                 is ViewState.Error -> Toast.makeText(
                     this.activity,
                     "${it.throwable.message}",
                     Toast.LENGTH_LONG
                 ).show()
+
+                else -> {}
             }
         }
     }
 
     private fun showCreaturesList() {
+        binding.cvBugs.alpha = 0.5F
         binding.rvCreatures.adapter = creaturesAdapter
-        binding.rvCreatures.layoutManager = GridLayoutManager(this.activity, 5)
+        binding.rvCreatures.layoutManager =
+            GridLayoutManager(this.activity, 6, GridLayoutManager.HORIZONTAL, false)
     }
 
     private fun onBugClicked(clickedBug: BugsUiModel) {
-
+        if (clickedBug.catchBug) {
+            creaturesViewModel.updateCatchBug(clickedBug)
+            Toast.makeText(this.activity, "YAY! Você pegou ${clickedBug.name}!", Toast.LENGTH_LONG)
+                .show()
+        } else {
+            creaturesViewModel.updateCatchBug(clickedBug)
+            Toast.makeText(
+                this.activity,
+                "ops, ${clickedBug.name} fugiu!",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     private fun onBackClicked() {

@@ -6,21 +6,19 @@ import com.jennysival.nookapp.ui.creatures.BugsUiModel
 class CreaturesMapper {
     private fun mapApiBugToUiBug(apiBug: BugsResponseItem): BugsUiModel {
         return BugsUiModel(
-            catchphrases = apiBug.catchphrases,
             imageUrl = apiBug.imageUrl,
             location = apiBug.location,
             name = apiBug.name,
-            north = apiBug.north,
             number = apiBug.number,
             rarity = apiBug.rarity,
             renderUrl = apiBug.renderUrl,
             sellFlick = apiBug.sellFlick,
             sellNook = apiBug.sellNook,
-            south = apiBug.south,
             tankLength = apiBug.tankLength,
             tankWidth = apiBug.tankWidth,
             totalCatch = apiBug.totalCatch,
-            url = apiBug.url
+            url = apiBug.url,
+            catchBug = apiBug.catchBug
         )
     }
 
@@ -30,5 +28,23 @@ class CreaturesMapper {
             uiBugsList.add(mapApiBugToUiBug(apiBug))
         }
         return uiBugsList
+    }
+
+    fun getCatchBug(uiBug: BugsUiModel): BugsResponseItem {
+        return BugsResponseItem(
+            imageUrl = uiBug.imageUrl,
+            location = uiBug.location,
+            name = uiBug.name,
+            number = uiBug.number,
+            rarity = uiBug.rarity,
+            renderUrl = uiBug.renderUrl,
+            sellFlick = uiBug.sellFlick,
+            sellNook = uiBug.sellNook,
+            tankLength = uiBug.tankLength,
+            tankWidth = uiBug.tankWidth,
+            totalCatch = uiBug.totalCatch,
+            url = uiBug.url,
+            catchBug = uiBug.catchBug
+        )
     }
 }

@@ -85,9 +85,12 @@ dependencies {
     implementation(libs.picasso)
 
     implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.room.testing)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

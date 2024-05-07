@@ -7,7 +7,7 @@ import com.jennysival.nookapp.databinding.CreatureItemBinding
 import com.squareup.picasso.Picasso
 
 class CreaturesAdapter(
-    private var bugsList: List<BugsUiModel>,
+    private var bugsList: MutableList<BugsUiModel>,
     private val onBugClick: (uiBug: BugsUiModel) -> Unit
 ) : RecyclerView.Adapter<CreaturesAdapter.ViewHolder>() {
 
@@ -16,6 +16,11 @@ class CreaturesAdapter(
         fun showBug(uiBug: BugsUiModel) {
             Picasso.get().load(uiBug.imageUrl).into(binding.ivCreature)
             binding.ivCreature.contentDescription = uiBug.name
+            if (uiBug.catchBug) {
+                binding.ivCreature.alpha = 1F
+            } else {
+                binding.ivCreature.alpha = 0.3F
+            }
         }
     }
 
@@ -36,12 +41,16 @@ class CreaturesAdapter(
         holder.showBug(uiBbug)
 
         holder.binding.itemCreat.setOnClickListener {
+            uiBbug.catchBug = !uiBbug.catchBug
             onBugClick(uiBbug)
+            notifyItemChanged(position)
         }
     }
 
-    fun updateList(newList: MutableList<BugsUiModel>) {
-        bugsList = newList
+    fun addBugsList(addedBugsList: MutableList<BugsUiModel>) {
+        if (bugsList.isEmpty()) {
+            bugsList = addedBugsList
+        }
         notifyDataSetChanged()
     }
 }

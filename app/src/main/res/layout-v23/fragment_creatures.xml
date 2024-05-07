@@ -89,25 +89,16 @@
         android:layout_marginTop="@dimen/nookapp_30dp"
         android:layout_marginStart="@dimen/nookapp_30dp"
         android:layout_marginEnd="@dimen/margin_42dp"
+        android:layout_marginBottom="@dimen/nookapp_30dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/tv_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_fishes"
         app:layout_constraintVertical_bias="0.0"
         app:spanCount="5"
         tools:itemCount="40"
+        android:scrollIndicators="bottom"
         tools:listitem="@layout/creature_item" />
-
-    <TextView
-        android:id="@+id/tv_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_20dp"
-        android:text="FIM"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_creatures"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

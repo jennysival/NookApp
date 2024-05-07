@@ -8,4 +8,5 @@
     <string name="nookapp_insetos">Insetos</string>
     <string name="nookapp_peixes">Peixes</string>
     <string name="nookapp_marinhos">Animais Marinhos</string>
+    <string name="back_description">voltar para home</string>
 </resources>

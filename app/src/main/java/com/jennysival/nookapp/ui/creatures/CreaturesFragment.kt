@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.jennysival.nookapp.R
 import com.jennysival.nookapp.databinding.FragmentCreaturesBinding
 import com.jennysival.nookapp.utils.ViewState
 
@@ -35,17 +37,23 @@ class CreaturesFragment : Fragment() {
         initObserver()
         creaturesViewModel.getBugs()
         showCreaturesList()
+        onBackClicked()
     }
 
     private fun initViewModel() {
-        creaturesViewModel = ViewModelProvider(this, CreaturesViewModelFactory())[CreaturesViewModel::class.java]
+        creaturesViewModel =
+            ViewModelProvider(this, CreaturesViewModelFactory())[CreaturesViewModel::class.java]
     }
 
     private fun initObserver() {
         creaturesViewModel.bugsListState.observe(this.viewLifecycleOwner) {
             when (it) {
                 is ViewState.Success -> creaturesAdapter.updateList(it.data as MutableList<BugsUiModel>)
-                is ViewState.Error -> Toast.makeText(this.activity, "${it.throwable.message}", Toast.LENGTH_LONG).show()
+                is ViewState.Error -> Toast.makeText(
+                    this.activity,
+                    "${it.throwable.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -57,5 +65,12 @@ class CreaturesFragment : Fragment() {
 
     private fun onBugClicked(clickedBug: BugsUiModel) {
 
+    }
+
+    private fun onBackClicked() {
+        binding.ivBackbutton?.setOnClickListener {
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_creaturesFragment_to_homeFragment)
+        }
     }
 }

@@ -12,6 +12,7 @@
         android:src="@drawable/bugsbutton"
         android:contentDescription="@string/nookapp_criaturas"
         android:alpha="1"
+        android:layout_marginTop="@dimen/margin_12dp"
         android:layout_marginStart="@dimen/margin_12dp"
         android:layout_marginBottom="@dimen/margin_12dp"
         app:layout_constraintStart_toStartOf="parent"

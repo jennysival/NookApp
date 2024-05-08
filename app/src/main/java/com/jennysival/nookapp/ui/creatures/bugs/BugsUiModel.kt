@@ -1,4 +1,4 @@
-package com.jennysival.nookapp.ui.creatures
+package com.jennysival.nookapp.ui.creatures.bugs
 
 import com.jennysival.nookapp.data.remote.bugs.North
 import com.jennysival.nookapp.data.remote.bugs.South

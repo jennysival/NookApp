@@ -21,12 +21,31 @@ class CreaturesViewModel(private val useCase: CreaturesUseCase) : ViewModel() {
     private val _seaListState = MutableLiveData<ViewState<List<SeaUiModel>>>()
     val seaListState: LiveData<ViewState<List<SeaUiModel>>> = _seaListState
 
-    fun getBugs() {
+    private val _loadState = MutableLiveData<ViewState<Boolean>>()
+    val loadState: LiveData<ViewState<Boolean>> = _loadState
+
+    fun getBugsFromDatabase() {
+        _loadState.value = ViewState.Loading(true)
+        viewModelScope.launch {
+            try {
+                _bugsListState.value = useCase.getBugsFromDatabase()
+            } catch (e: Exception) {
+                getBugsFromApi()
+            } finally {
+                _loadState.value = ViewState.Loading(false)
+            }
+        }
+    }
+
+    private fun getBugsFromApi() {
+        _loadState.value = ViewState.Loading(true)
         viewModelScope.launch {
             try {
                 _bugsListState.value = useCase.getBugsApi()
             } catch (e: Exception) {
                 _bugsListState.value = ViewState.Error(Throwable(e.message))
+            } finally {
+                _loadState.value = ViewState.Loading(false)
             }
         }
     }
@@ -41,12 +60,28 @@ class CreaturesViewModel(private val useCase: CreaturesUseCase) : ViewModel() {
         }
     }
 
-    fun getFishes() {
+    fun getFishesFromDatabase() {
+        _loadState.value = ViewState.Loading(true)
+        viewModelScope.launch {
+            try {
+                _fishesListState.value = useCase.getFishesFromDatabase()
+            } catch (e: Exception) {
+                getFishesFromApi()
+            } finally {
+                _loadState.value = ViewState.Loading(false)
+            }
+        }
+    }
+
+    private fun getFishesFromApi() {
+        _loadState.value = ViewState.Loading(true)
         viewModelScope.launch {
             try {
                 _fishesListState.value = useCase.getFishesFromApi()
             } catch (e: Exception) {
                 _fishesListState.value = ViewState.Error(Throwable(e.message))
+            } finally {
+                _loadState.value = ViewState.Loading(false)
             }
         }
     }
@@ -61,12 +96,28 @@ class CreaturesViewModel(private val useCase: CreaturesUseCase) : ViewModel() {
         }
     }
 
-    fun getSea() {
+    fun getSeaFromDatabase() {
+        _loadState.value = ViewState.Loading(true)
+        viewModelScope.launch {
+            try {
+                _seaListState.value = useCase.getSeaFromDatabase()
+            } catch (e: Exception) {
+                getSeaFromApi()
+            } finally {
+                _loadState.value = ViewState.Loading(false)
+            }
+        }
+    }
+
+    private fun getSeaFromApi() {
+        _loadState.value = ViewState.Loading(true)
         viewModelScope.launch {
             try {
                 _seaListState.value = useCase.getSeaFromApi()
             } catch (e: Exception) {
                 _seaListState.value = ViewState.Error(Throwable(e.message))
+            } finally {
+                _loadState.value = ViewState.Loading(false)
             }
         }
     }

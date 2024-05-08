@@ -60,7 +60,7 @@ class CreaturesUseCase(
         creaturesRepository.insertSeaDatabase(seaList)
     }
 
-    private suspend fun getBugsFromDatabase(): ViewState<List<BugsUiModel>> {
+    suspend fun getBugsFromDatabase(): ViewState<List<BugsUiModel>> {
         return try {
             val bugsList = creaturesRepository.getBugsDatabase()
             ViewState.Success(mapBugsUiModel(bugsList))
@@ -68,7 +68,7 @@ class CreaturesUseCase(
             ViewState.Error(Exception(e.message))
         }
     }
-    private suspend fun getFishesFromDatabase(): ViewState<List<FishesUiModel>> {
+    suspend fun getFishesFromDatabase(): ViewState<List<FishesUiModel>> {
         return try {
             val fishesList = creaturesRepository.getFishesDatabase()
             ViewState.Success(mapFishesUiModel(fishesList))
@@ -76,7 +76,7 @@ class CreaturesUseCase(
             ViewState.Error(Exception(e.message))
         }
     }
-    private suspend fun getSeaFromDatabase(): ViewState<List<SeaUiModel>> {
+    suspend fun getSeaFromDatabase(): ViewState<List<SeaUiModel>> {
         return try {
             val seaList = creaturesRepository.getSeaDatabase()
             ViewState.Success(mapSeaUiModel(seaList))

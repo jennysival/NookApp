@@ -81,6 +81,18 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <ProgressBar
+        android:id="@+id/pbLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/light_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_fishes"
         android:visibility="visible"

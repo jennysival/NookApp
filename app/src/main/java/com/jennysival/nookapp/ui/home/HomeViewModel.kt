@@ -1,12 +1,9 @@
 package com.jennysival.nookapp.ui.home
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.jennysival.nookapp.repository.FeaturesRepository
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val featuresRepository = FeaturesRepository()
+class HomeViewModel(private val featuresRepository: FeaturesRepository) : ViewModel() {
 
     fun getHomeFeatures() = featuresRepository.getFeaturesList()
 

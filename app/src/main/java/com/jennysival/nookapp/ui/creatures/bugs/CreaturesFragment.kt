@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -38,7 +39,7 @@ class CreaturesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initObserver()
-        creaturesViewModel.getBugs()
+        creaturesViewModel.getBugsFromDatabase()
         showCreaturesList()
         onFishButtonClick()
         onBackClicked()
@@ -54,6 +55,15 @@ class CreaturesFragment : Fragment() {
     }
 
     private fun initObserver() {
+        creaturesViewModel.loadState.observe(this.viewLifecycleOwner) {
+            when (it) {
+                is ViewState.Loading -> {
+                    binding.pbLoad.isVisible = it.loading == true
+                }
+                else -> {}
+            }
+        }
+
         creaturesViewModel.bugsListState.observe(this.viewLifecycleOwner) {
             when (it) {
                 is ViewState.Success -> bugsAdapter.addBugsList(it.data as MutableList<BugsUiModel>)

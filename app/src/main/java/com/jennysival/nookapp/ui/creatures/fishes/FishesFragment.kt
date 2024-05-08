@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -37,7 +38,7 @@ class FishesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initObserver()
-        creaturesViewModel.getFishes()
+        creaturesViewModel.getFishesFromDatabase()
         showCreaturesList()
         onBackClicked()
         onBugButtonClick()
@@ -53,15 +54,28 @@ class FishesFragment : Fragment() {
     }
 
     private fun initObserver() {
+        creaturesViewModel.loadState.observe(this.viewLifecycleOwner) {
+            when (it) {
+                is ViewState.Loading -> {
+                    binding.pbLoad.isVisible = it.loading == true
+                }
+
+                else -> {}
+            }
+        }
+
         creaturesViewModel.fishesListState.observe(this.viewLifecycleOwner) {
             when (it) {
                 is ViewState.Success -> {
                     fishesAdapter.addFishesList(it.data as MutableList<FishesUiModel>)
                 }
+
                 is ViewState.Error -> Toast.makeText(
                     this.activity, "${it.throwable.message}",
                     Toast.LENGTH_LONG
                 ).show()
+
+                else -> {}
             }
         }
     }

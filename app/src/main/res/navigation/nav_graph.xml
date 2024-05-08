@@ -16,11 +16,45 @@
     </fragment>
     <fragment
         android:id="@+id/creaturesFragment"
-        android:name="com.jennysival.nookapp.ui.creatures.CreaturesFragment"
+        android:name="com.jennysival.nookapp.ui.creatures.bugs.CreaturesFragment"
         android:label="fragment_creatures"
         tools:layout="@layout/fragment_creatures" >
         <action
             android:id="@+id/action_creaturesFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_creaturesFragment_to_fishesFragment"
+            app:destination="@id/fishesFragment" />
+        <action
+            android:id="@+id/action_creaturesFragment_to_seaFragment"
+            app:destination="@id/seaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fishesFragment"
+        android:name="com.jennysival.nookapp.ui.creatures.fishes.FishesFragment"
+        android:label="FishesFragment" >
+        <action
+            android:id="@+id/action_fishesFragment_to_creaturesFragment"
+            app:destination="@id/creaturesFragment" />
+        <action
+            android:id="@+id/action_fishesFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_fishesFragment_to_seaFragment"
+            app:destination="@id/seaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seaFragment"
+        android:name="com.jennysival.nookapp.ui.creatures.sea.SeaFragment"
+        android:label="SeaFragment" >
+        <action
+            android:id="@+id/action_seaFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_seaFragment_to_creaturesFragment"
+            app:destination="@id/creaturesFragment" />
+        <action
+            android:id="@+id/action_seaFragment_to_fishesFragment"
+            app:destination="@id/fishesFragment" />
     </fragment>
 </navigation>

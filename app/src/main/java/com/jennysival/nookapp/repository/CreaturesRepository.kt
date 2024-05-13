@@ -1,8 +1,8 @@
 package com.jennysival.nookapp.repository
 
-import com.jennysival.nookapp.data.local.BugsDao
-import com.jennysival.nookapp.data.local.FishesDao
-import com.jennysival.nookapp.data.local.SeaDao
+import com.jennysival.nookapp.data.local.critter.BugsDao
+import com.jennysival.nookapp.data.local.critter.FishesDao
+import com.jennysival.nookapp.data.local.critter.SeaDao
 import com.jennysival.nookapp.data.remote.RetrofitService
 import com.jennysival.nookapp.data.remote.bugs.BugsResponseItem
 import com.jennysival.nookapp.data.remote.fishes.FishesResponseItem

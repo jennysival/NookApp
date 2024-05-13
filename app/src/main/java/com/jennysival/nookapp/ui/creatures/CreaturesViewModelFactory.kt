@@ -3,10 +3,10 @@ package com.jennysival.nookapp.ui.creatures
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.jennysival.nookapp.data.local.BugsDao
-import com.jennysival.nookapp.data.local.CritterDatabase
-import com.jennysival.nookapp.data.local.FishesDao
-import com.jennysival.nookapp.data.local.SeaDao
+import com.jennysival.nookapp.data.local.critter.BugsDao
+import com.jennysival.nookapp.data.local.critter.CritterDatabase
+import com.jennysival.nookapp.data.local.critter.FishesDao
+import com.jennysival.nookapp.data.local.critter.SeaDao
 import com.jennysival.nookapp.usecase.CreaturesUseCase
 
 class CreaturesViewModelFactory(context: Context) : ViewModelProvider.Factory {

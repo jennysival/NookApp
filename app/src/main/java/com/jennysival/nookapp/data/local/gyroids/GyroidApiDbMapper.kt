@@ -7,6 +7,15 @@ class GyroidApiDbMapper {
     fun mapApiToDb(apiGyList: List<ApiGyroidsResponseItem>): List<GyroidsEntity> =
         apiGyList.map { apiResponse ->
             when (apiResponse.variationTotal) {
+                0 -> {
+                    GyroidsEntity(
+                        name = apiResponse.name,
+                        variationTotal = 1,
+                        oneVariationName = apiResponse.name,
+                        oneVariationimageUrl = "https://dodo.ac/np/images/9/95/Brewstoid_NH_Icon.png",
+                        oneGotVariation = apiResponse.variations[0].gotVariation
+                    )
+                }
                 1 -> {
                     GyroidsEntity(
                         name = apiResponse.name,

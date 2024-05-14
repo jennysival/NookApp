@@ -46,6 +46,7 @@ class GyroidsVariationAdapter(
             } else {
                 binding.ivCheck.visibility = View.GONE
                 binding.ivGyroid.visibility = View.GONE
+                binding.pbLoad.visibility = View.GONE
             }
 
         }

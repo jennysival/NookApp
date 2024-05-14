@@ -1,4 +1,4 @@
-package com.jennysival.nookapp.data.local
+package com.jennysival.nookapp.data.local.critter
 
 import android.content.Context
 import androidx.room.Database

@@ -1,4 +1,4 @@
-package com.jennysival.nookapp.data.local
+package com.jennysival.nookapp.data.local.critter
 
 import androidx.room.Dao
 import androidx.room.Insert

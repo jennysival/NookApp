@@ -14,7 +14,7 @@ class BugsAdapter(
     class ViewHolder(val binding: CreatureItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun showBug(uiBug: BugsUiModel) {
-            Picasso.get().load(uiBug.imageUrl).into(binding.ivCreature)
+            Picasso.get().load(uiBug.imageUrl).noFade().fit().into(binding.ivCreature)
             binding.ivCreature.contentDescription = uiBug.name
             if (uiBug.catchBug) {
                 binding.ivCreature.alpha = 1F

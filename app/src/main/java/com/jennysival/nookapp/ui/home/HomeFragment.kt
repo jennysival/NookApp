@@ -106,7 +106,7 @@ class HomeFragment : Fragment() {
 
             NOOKAPP_GYROIDS -> navigateToFeatures(
                 feature = feature,
-                navId = R.id.action_homeFragment_to_creaturesFragment
+                navId = R.id.action_homeFragment_to_gyroidsFragment
             )
 
             NOOKAPP_MINHA_ILHA -> navigateToFeatures(

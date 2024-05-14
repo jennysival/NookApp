@@ -1,9 +1,9 @@
 package com.jennysival.nookapp.usecase
 
 import android.database.sqlite.SQLiteConstraintException
-import com.jennysival.nookapp.data.local.BugsDao
-import com.jennysival.nookapp.data.local.FishesDao
-import com.jennysival.nookapp.data.local.SeaDao
+import com.jennysival.nookapp.data.local.critter.BugsDao
+import com.jennysival.nookapp.data.local.critter.FishesDao
+import com.jennysival.nookapp.data.local.critter.SeaDao
 import com.jennysival.nookapp.data.remote.bugs.BugsResponseItem
 import com.jennysival.nookapp.data.remote.fishes.FishesResponseItem
 import com.jennysival.nookapp.data.remote.sea.SeaResponseItem
@@ -63,7 +63,11 @@ class CreaturesUseCase(
     suspend fun getBugsFromDatabase(): ViewState<List<BugsUiModel>> {
         return try {
             val bugsList = creaturesRepository.getBugsDatabase()
-            ViewState.Success(mapBugsUiModel(bugsList))
+            if(bugsList.isEmpty()){
+                getBugsApi()
+            } else {
+                ViewState.Success(mapBugsUiModel(bugsList))
+            }
         } catch (e: SQLiteConstraintException) {
             ViewState.Error(Exception(e.message))
         }
@@ -71,7 +75,11 @@ class CreaturesUseCase(
     suspend fun getFishesFromDatabase(): ViewState<List<FishesUiModel>> {
         return try {
             val fishesList = creaturesRepository.getFishesDatabase()
-            ViewState.Success(mapFishesUiModel(fishesList))
+            if(fishesList.isEmpty()){
+                getFishesFromApi()
+            } else {
+                ViewState.Success(mapFishesUiModel(fishesList))
+            }
         } catch (e: SQLiteConstraintException) {
             ViewState.Error(Exception(e.message))
         }
@@ -79,7 +87,11 @@ class CreaturesUseCase(
     suspend fun getSeaFromDatabase(): ViewState<List<SeaUiModel>> {
         return try {
             val seaList = creaturesRepository.getSeaDatabase()
-            ViewState.Success(mapSeaUiModel(seaList))
+            if(seaList.isEmpty()) {
+                getSeaFromApi()
+            } else {
+                ViewState.Success(mapSeaUiModel(seaList))
+            }
         } catch (e: SQLiteConstraintException) {
             ViewState.Error(Exception(e.message))
         }
@@ -87,7 +99,7 @@ class CreaturesUseCase(
 
     suspend fun updateCatchBugs(catchBug: BugsUiModel): ViewState<BugsUiModel> {
         return try {
-            val mapBugs = creaturesMapper.getCatchBug(catchBug)
+            val mapBugs = creaturesMapper.mapSingleBugUiToApi(catchBug)
             creaturesRepository.updateCatchBugs(mapBugs)
             ViewState.Success(catchBug)
         } catch (e: SQLiteConstraintException) {
@@ -96,7 +108,7 @@ class CreaturesUseCase(
     }
     suspend fun updateCatchFish(catchFish: FishesUiModel): ViewState<FishesUiModel> {
         return try {
-            val mapFish = creaturesMapper.getCatchFish(catchFish)
+            val mapFish = creaturesMapper.mapSingleFishUiToApi(catchFish)
             creaturesRepository.updateCatchFish(mapFish)
             ViewState.Success(catchFish)
         } catch (e: SQLiteConstraintException) {
@@ -105,7 +117,7 @@ class CreaturesUseCase(
     }
     suspend fun updateCatchSea(catchSea: SeaUiModel): ViewState<SeaUiModel> {
         return try {
-            val mapSea = creaturesMapper.getCatchSea(catchSea)
+            val mapSea = creaturesMapper.mapSingleSeaUiToApi(catchSea)
             creaturesRepository.updateCatchSea(mapSea)
             ViewState.Success(catchSea)
         } catch (e: SQLiteConstraintException) {
@@ -114,18 +126,18 @@ class CreaturesUseCase(
     }
 
     private fun mapBugsUiModel(apiBugsList: List<BugsResponseItem>): List<BugsUiModel> {
-        return creaturesMapper.getBugsList(apiBugsList).sortedBy {
+        return creaturesMapper.mapBugsApiToUi(apiBugsList).sortedBy {
             it.number.inc()
         }
     }
     private fun mapFishesUiModel(apiFishesList: List<FishesResponseItem>): List<FishesUiModel> {
-        return creaturesMapper.getFishesList(apiFishesList).sortedBy {
+        return creaturesMapper.mapFishesApiToUi(apiFishesList).sortedBy {
             it.number.inc()
         }
     }
 
     private fun mapSeaUiModel(apiSeaList: List<SeaResponseItem>): List<SeaUiModel> {
-        return creaturesMapper.getSeaList(apiSeaList).sortedBy {
+        return creaturesMapper.mapSeaApiToUi(apiSeaList).sortedBy {
             it.number.inc()
         }
     }

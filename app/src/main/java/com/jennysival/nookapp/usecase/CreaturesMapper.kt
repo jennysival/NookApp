@@ -8,25 +8,8 @@ import com.jennysival.nookapp.ui.creatures.fishes.FishesUiModel
 import com.jennysival.nookapp.ui.creatures.sea.SeaUiModel
 
 class CreaturesMapper {
-    private fun mapApiBugToUiBug(apiBug: BugsResponseItem): BugsUiModel {
-        return BugsUiModel(
-            imageUrl = apiBug.imageUrl,
-            location = apiBug.location,
-            name = apiBug.name,
-            number = apiBug.number,
-            rarity = apiBug.rarity,
-            renderUrl = apiBug.renderUrl,
-            sellFlick = apiBug.sellFlick,
-            sellNook = apiBug.sellNook,
-            tankLength = apiBug.tankLength,
-            tankWidth = apiBug.tankWidth,
-            totalCatch = apiBug.totalCatch,
-            url = apiBug.url,
-            catchBug = apiBug.catchBug
-        )
-    }
 
-    fun getCatchBug(uiBug: BugsUiModel): BugsResponseItem {
+    fun mapSingleBugUiToApi(uiBug: BugsUiModel): BugsResponseItem {
         return BugsResponseItem(
             imageUrl = uiBug.imageUrl,
             location = uiBug.location,
@@ -44,34 +27,26 @@ class CreaturesMapper {
         )
     }
 
-    fun getBugsList(apiBugsList: List<BugsResponseItem>): List<BugsUiModel> {
-        val uiBugsList = mutableListOf<BugsUiModel>()
-        apiBugsList.forEach { apiBug ->
-            uiBugsList.add(mapApiBugToUiBug(apiBug))
+    fun mapBugsApiToUi(apiBugsList: List<BugsResponseItem>): List<BugsUiModel> =
+        apiBugsList.map {
+            BugsUiModel(
+                imageUrl = it.imageUrl,
+                location = it.location,
+                name = it.name,
+                number = it.number,
+                rarity = it.rarity,
+                renderUrl = it.renderUrl,
+                sellFlick = it.sellFlick,
+                sellNook = it.sellNook,
+                tankLength = it.tankLength,
+                tankWidth = it.tankWidth,
+                totalCatch = it.totalCatch,
+                url = it.url,
+                catchBug = it.catchBug
+            )
         }
-        return uiBugsList
-    }
 
-    private fun mapApiFishToUiFish(apiFish: FishesResponseItem): FishesUiModel {
-        return FishesUiModel(
-            imageUrl = apiFish.imageUrl,
-            location = apiFish.location,
-            name = apiFish.name,
-            number = apiFish.number,
-            rarity = apiFish.rarity,
-            renderUrl = apiFish.renderUrl,
-            sellCj = apiFish.sellCj,
-            sellNook = apiFish.sellNook,
-            shadowSize = apiFish.shadowSize,
-            tankLength = apiFish.tankLength,
-            tankWidth = apiFish.tankWidth,
-            totalCatch = apiFish.totalCatch,
-            url = apiFish.url,
-            catchFish = apiFish.catchFish
-        )
-    }
-
-   fun getCatchFish(uiFish: FishesUiModel): FishesResponseItem {
+   fun mapSingleFishUiToApi(uiFish: FishesUiModel): FishesResponseItem {
         return FishesResponseItem(
             imageUrl = uiFish.imageUrl,
             location = uiFish.location,
@@ -90,33 +65,27 @@ class CreaturesMapper {
         )
     }
 
-    fun getFishesList(apiFishesList: List<FishesResponseItem>): List<FishesUiModel> {
-        val uiFishesList = mutableListOf<FishesUiModel>()
-        apiFishesList.forEach { apiFish ->
-            uiFishesList.add(mapApiFishToUiFish(apiFish))
+    fun mapFishesApiToUi(apiFishesList: List<FishesResponseItem>): List<FishesUiModel> =
+        apiFishesList.map {
+            FishesUiModel(
+                imageUrl = it.imageUrl,
+                location = it.location,
+                name = it.name,
+                number = it.number,
+                rarity = it.rarity,
+                renderUrl = it.renderUrl,
+                sellCj = it.sellCj,
+                sellNook = it.sellNook,
+                shadowSize = it.shadowSize,
+                tankLength = it.tankLength,
+                tankWidth = it.tankWidth,
+                totalCatch = it.totalCatch,
+                url = it.url,
+                catchFish = it.catchFish
+            )
         }
-        return uiFishesList
-    }
 
-    private fun mapApiSeaToUiSea(apiSea: SeaResponseItem): SeaUiModel {
-        return SeaUiModel(
-            imageUrl = apiSea.imageUrl,
-            name = apiSea.name,
-            number = apiSea.number,
-            rarity = apiSea.rarity,
-            renderUrl = apiSea.renderUrl,
-            sellNook = apiSea.sellNook,
-            shadowMovement = apiSea.shadowMovement,
-            shadowSize = apiSea.shadowSize,
-            tankLength = apiSea.tankLength,
-            tankWidth = apiSea.tankWidth,
-            totalCatch = apiSea.totalCatch,
-            url = apiSea.url,
-            catchSea = apiSea.catchSea
-        )
-    }
-
-    fun getCatchSea(uiSea: SeaUiModel): SeaResponseItem {
+    fun mapSingleSeaUiToApi(uiSea: SeaUiModel): SeaResponseItem {
         return SeaResponseItem(
             imageUrl = uiSea.imageUrl,
             name = uiSea.name,
@@ -134,11 +103,22 @@ class CreaturesMapper {
         )
     }
 
-    fun getSeaList(apiSeaList: List<SeaResponseItem>): List<SeaUiModel> {
-        val uiSeaList = mutableListOf<SeaUiModel>()
-        apiSeaList.forEach { apiSea ->
-            uiSeaList.add(mapApiSeaToUiSea(apiSea))
+    fun mapSeaApiToUi(apiSeaList: List<SeaResponseItem>): List<SeaUiModel> =
+        apiSeaList.map {
+            SeaUiModel(
+                imageUrl = it.imageUrl,
+                name = it.name,
+                number = it.number,
+                rarity = it.rarity,
+                renderUrl = it.renderUrl,
+                sellNook = it.sellNook,
+                shadowMovement = it.shadowMovement,
+                shadowSize = it.shadowSize,
+                tankLength = it.tankLength,
+                tankWidth = it.tankWidth,
+                totalCatch = it.totalCatch,
+                url = it.url,
+                catchSea = it.catchSea
+            )
         }
-        return uiSeaList
-    }
 }

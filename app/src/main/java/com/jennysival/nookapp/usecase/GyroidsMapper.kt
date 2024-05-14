@@ -72,6 +72,16 @@ class GyroidsMapper {
 
     fun mapSingleUiToDb(gyroid: UiGyroidsModel): GyroidsEntity =
         when (gyroid.variationTotal) {
+            0 -> {
+                GyroidsEntity(
+                    id = gyroid.id,
+                    name = gyroid.name,
+                    variationTotal = 1,
+                    oneVariationName = gyroid.name,
+                    oneVariationimageUrl = "https://dodo.ac/np/images/9/95/Brewstoid_NH_Icon.png",
+                    oneGotVariation = gyroid.variations[0].gotVariation
+                )
+            }
             1 -> {
                 GyroidsEntity(
                     id = gyroid.id,
@@ -216,7 +226,7 @@ class GyroidsMapper {
                 GyroidsEntity(
                     id = gyroid.id,
                     name = gyroid.name,
-                    variationTotal = 1
+                    variationTotal = gyroid.variationTotal,
                 )
             }
         }

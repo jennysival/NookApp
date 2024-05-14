@@ -70,11 +70,6 @@ class GyroidsMapper {
         return uiList
     }
 
-    fun mapUiToDb(uiList: List<UiGyroidsModel>): List<GyroidsEntity> =
-        uiList.map { gyroid ->
-            mapSingleUiToDb(gyroid)
-        }
-
     fun mapSingleUiToDb(gyroid: UiGyroidsModel): GyroidsEntity =
         when (gyroid.variationTotal) {
             1 -> {
@@ -221,7 +216,7 @@ class GyroidsMapper {
                 GyroidsEntity(
                     id = gyroid.id,
                     name = gyroid.name,
-                    variationTotal = gyroid.variationTotal
+                    variationTotal = 1
                 )
             }
         }

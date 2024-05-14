@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jennysival.nookapp.databinding.GyroidItemBinding
 import com.jennysival.nookapp.ui.gyroids.model.UiGyroidsModel
 import com.jennysival.nookapp.ui.gyroids.model.UiVariation
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 class GyroidsVariationAdapter(
@@ -27,7 +28,20 @@ class GyroidsVariationAdapter(
             if (variation.imageUrl.isNotEmpty()) {
                 binding.ivCheck.visibility = View.VISIBLE
                 binding.ivGyroid.visibility = View.VISIBLE
-                Picasso.get().load(variation.imageUrl).into(binding.ivGyroid)
+                binding.pbLoad.visibility = View.VISIBLE
+                Picasso.get().load(variation.imageUrl).fit()
+                    .into(binding.ivGyroid, object : Callback {
+                        override fun onSuccess() {
+                            binding.pbLoad.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            binding.ivCheck.visibility = View.GONE
+                            binding.ivGyroid.visibility = View.GONE
+                            binding.pbLoad.visibility = View.GONE
+                        }
+
+                    })
                 binding.ivGyroid.contentDescription = variation.variation
             } else {
                 binding.ivCheck.visibility = View.GONE
@@ -58,12 +72,5 @@ class GyroidsVariationAdapter(
             onCheckClick(gyroid, position)
             notifyItemChanged(position)
         }
-    }
-
-    fun addVariationList(addedVariationList: MutableList<UiVariation>) {
-        variationList = addedVariationList
-        notifyItemRangeChanged(
-            0, itemCount
-        )
     }
 }

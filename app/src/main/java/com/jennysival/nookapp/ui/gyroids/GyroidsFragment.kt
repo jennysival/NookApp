@@ -115,9 +115,10 @@ class GyroidsFragment : Fragment() {
     }
 
     private fun onCheckClicked(gyroid: UiGyroidsModel, position: Int) {
+        val gotText = "Um ${gyroid.name}... ${BrewsterDialogues.GOOD_CONDITIONS}"
         if (gyroid.variations[position].gotVariation) {
             gyroidsViewModel.updateGotGyroid(gyroid)
-            binding.tvDialogue.text = "Um ${gyroid.name}... ${BrewsterDialogues.GOOD_CONDITIONS}"
+            binding.tvDialogue.text = gotText
         } else {
             gyroidsViewModel.updateGotGyroid(gyroid)
             binding.tvDialogue.text = BrewsterDialogues.GIVE_BACK

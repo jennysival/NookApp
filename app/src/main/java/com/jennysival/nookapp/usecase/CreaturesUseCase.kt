@@ -63,7 +63,11 @@ class CreaturesUseCase(
     suspend fun getBugsFromDatabase(): ViewState<List<BugsUiModel>> {
         return try {
             val bugsList = creaturesRepository.getBugsDatabase()
-            ViewState.Success(mapBugsUiModel(bugsList))
+            if(bugsList.isEmpty()){
+                getBugsApi()
+            } else {
+                ViewState.Success(mapBugsUiModel(bugsList))
+            }
         } catch (e: SQLiteConstraintException) {
             ViewState.Error(Exception(e.message))
         }
@@ -71,7 +75,11 @@ class CreaturesUseCase(
     suspend fun getFishesFromDatabase(): ViewState<List<FishesUiModel>> {
         return try {
             val fishesList = creaturesRepository.getFishesDatabase()
-            ViewState.Success(mapFishesUiModel(fishesList))
+            if(fishesList.isEmpty()){
+                getFishesFromApi()
+            } else {
+                ViewState.Success(mapFishesUiModel(fishesList))
+            }
         } catch (e: SQLiteConstraintException) {
             ViewState.Error(Exception(e.message))
         }
@@ -79,7 +87,11 @@ class CreaturesUseCase(
     suspend fun getSeaFromDatabase(): ViewState<List<SeaUiModel>> {
         return try {
             val seaList = creaturesRepository.getSeaDatabase()
-            ViewState.Success(mapSeaUiModel(seaList))
+            if(seaList.isEmpty()) {
+                getSeaFromApi()
+            } else {
+                ViewState.Success(mapSeaUiModel(seaList))
+            }
         } catch (e: SQLiteConstraintException) {
             ViewState.Error(Exception(e.message))
         }

@@ -13,9 +13,9 @@ class GyroidsUseCase(
     private val gyroidsRepository: GyroidsRepository = GyroidsRepository(gyroidsDao),
     private val gyroidsUiMapper: GyroidsMapper = GyroidsMapper(),
     private val gyroidsApiMapper: GyroidApiDbMapper = GyroidApiDbMapper()
-    ) {
+) {
 
-    suspend fun getGyroidsFromApi() : ViewState<List<UiGyroidsModel>> {
+    private suspend fun getGyroidsFromApi(): ViewState<List<UiGyroidsModel>> {
         return try {
             val apiGyroidsList = gyroidsRepository.getGyroidsFromApi()
             insertGyroidsInDatabase(gyroidsApiMapper.mapApiToDb(apiGyroidsList))
@@ -32,7 +32,7 @@ class GyroidsUseCase(
     suspend fun getGyroidsFromDatabase(): ViewState<List<UiGyroidsModel>> {
         return try {
             val gyroidsList = gyroidsRepository.getGyroidsDatabase()
-            if(gyroidsList.isEmpty()){
+            if (gyroidsList.isEmpty()) {
                 getGyroidsFromApi()
             } else {
                 ViewState.Success(gyroidsUiMapper.mapDbToUi(gyroidsList))
@@ -51,5 +51,7 @@ class GyroidsUseCase(
             ViewState.Error(Exception(e.message))
         }
     }
+
+    fun getRandomDialogue(): String = gyroidsRepository.getRandomDialogue()
 
 }

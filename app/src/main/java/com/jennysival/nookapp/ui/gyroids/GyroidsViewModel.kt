@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jennysival.nookapp.ui.gyroids.model.UiGyroidsModel
-import com.jennysival.nookapp.ui.gyroids.model.UiVariation
 import com.jennysival.nookapp.usecase.GyroidsUseCase
 import com.jennysival.nookapp.utils.ViewState
 import kotlinx.coroutines.launch
@@ -40,4 +39,6 @@ class GyroidsViewModel(private val useCase: GyroidsUseCase) : ViewModel() {
             }
         }
     }
+
+    fun getRandomDialogue(): String = useCase.getRandomDialogue()
 }

@@ -40,6 +40,7 @@ class GyroidsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpInitialDialogue()
         initViewModel()
         initObserver()
         gyroidsViewModel.getGyroidsFromDatabase()
@@ -61,6 +62,7 @@ class GyroidsFragment : Fragment() {
                 is ViewState.Loading -> {
                     binding.pbLoad.isVisible = it.loading == true
                 }
+
                 else -> {}
             }
         }
@@ -70,6 +72,7 @@ class GyroidsFragment : Fragment() {
                 is ViewState.Success -> {
                     gyroidsListAdapter.addGyroidList(it.data as MutableList<UiGyroidsModel>)
                 }
+
                 is ViewState.Error -> Toast.makeText(
                     this.activity,
                     "${it.throwable.message}",
@@ -83,11 +86,16 @@ class GyroidsFragment : Fragment() {
 
     private fun showGyroidsList() {
         binding.rvGyroidsList.adapter = gyroidsListAdapter
-        binding.rvGyroidsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.rvGyroidsList.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun setUpVariationsAdapter(clickedGyroid: UiGyroidsModel) {
-        val variationsAdapter = GyroidsVariationAdapter(clickedGyroid, clickedGyroid.variations as MutableList<UiVariation>, this::onCheckClicked)
+        val variationsAdapter = GyroidsVariationAdapter(
+            clickedGyroid,
+            clickedGyroid.variations as MutableList<UiVariation>,
+            this::onCheckClicked
+        )
         binding.rvGyroidsImages.adapter = variationsAdapter
         binding.rvGyroidsImages.layoutManager =
             GridLayoutManager(this.activity, 1, GridLayoutManager.HORIZONTAL, false)
@@ -95,6 +103,7 @@ class GyroidsFragment : Fragment() {
     }
 
     private fun onGyroidClicked(clickedGyroid: UiGyroidsModel) {
+        setRandomDialogue()
         setUpVariationsAdapter(clickedGyroid)
     }
 
@@ -108,14 +117,18 @@ class GyroidsFragment : Fragment() {
     private fun onCheckClicked(gyroid: UiGyroidsModel, position: Int) {
         if (gyroid.variations[position].gotVariation) {
             gyroidsViewModel.updateGotGyroid(gyroid)
-            binding.tvDialogue.text = "yay "
+            binding.tvDialogue.text = "Um ${gyroid.name}... ${BrewsterDialogues.GOOD_CONDITIONS}"
         } else {
             gyroidsViewModel.updateGotGyroid(gyroid)
-            Toast.makeText(
-                this.activity,
-                "ops, ${gyroid.name} fugiu!",
-                Toast.LENGTH_LONG
-            ).show()
+            binding.tvDialogue.text = BrewsterDialogues.GIVE_BACK
         }
+    }
+
+    private fun setUpInitialDialogue() {
+        binding.tvDialogue.text = BrewsterDialogues.INITIAL
+    }
+
+    private fun setRandomDialogue() {
+        binding.tvDialogue.text = gyroidsViewModel.getRandomDialogue()
     }
 }

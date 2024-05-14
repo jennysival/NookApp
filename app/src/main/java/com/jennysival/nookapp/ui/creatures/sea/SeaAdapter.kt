@@ -14,7 +14,7 @@ class SeaAdapter(
     class ViewHolder(val binding: CreatureItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun showSea(uiSea: SeaUiModel) {
-            Picasso.get().load(uiSea.imageUrl).into(binding.ivCreature)
+            Picasso.get().load(uiSea.imageUrl).noFade().fit().into(binding.ivCreature)
             binding.ivCreature.contentDescription = uiSea.name
             if (uiSea.catchSea) {
                 binding.ivCreature.alpha = 1F

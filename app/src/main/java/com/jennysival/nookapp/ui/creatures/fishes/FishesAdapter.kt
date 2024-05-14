@@ -14,7 +14,7 @@ class FishesAdapter(
     class ViewHolder(val binding: CreatureItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun showFish(uiFish: FishesUiModel) {
-            Picasso.get().load(uiFish.imageUrl).into(binding.ivCreature)
+            Picasso.get().load(uiFish.imageUrl).noFade().fit().into(binding.ivCreature)
             binding.ivCreature.contentDescription = uiFish.name
             if (uiFish.catchFish) {
                 binding.ivCreature.alpha = 1F

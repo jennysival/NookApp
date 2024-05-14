@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_creaturesFragment"
             app:destination="@id/creaturesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_gyroidsFragment"
+            app:destination="@id/gyroidsFragment" />
     </fragment>
     <fragment
         android:id="@+id/creaturesFragment"
@@ -56,5 +59,14 @@
         <action
             android:id="@+id/action_seaFragment_to_fishesFragment"
             app:destination="@id/fishesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gyroidsFragment"
+        android:name="com.jennysival.nookapp.ui.gyroids.GyroidsFragment"
+        android:label="fragment_gyroids"
+        tools:layout="@layout/fragment_gyroids" >
+        <action
+            android:id="@+id/action_gyroidsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

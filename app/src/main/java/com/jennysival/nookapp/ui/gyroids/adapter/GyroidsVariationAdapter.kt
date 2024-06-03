@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jennysival.nookapp.databinding.GyroidItemBinding
-import com.jennysival.nookapp.ui.gyroids.model.UiGyroidsModel
 import com.jennysival.nookapp.ui.gyroids.model.UiVariation
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso

@@ -1,7 +1,7 @@
 package com.jennysival.nookapp.ui.gyroids.model
 
 data class UiGyroidsModel(
-    var id: Int = 0,
+    var gyroidId: Long,
     var name: String,
     var variationTotal: Int,
     var variations: List<UiVariation>,

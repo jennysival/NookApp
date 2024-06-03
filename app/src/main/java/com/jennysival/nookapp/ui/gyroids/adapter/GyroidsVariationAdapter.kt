@@ -5,15 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jennysival.nookapp.databinding.GyroidItemBinding
-import com.jennysival.nookapp.ui.gyroids.model.UiGyroidsModel
 import com.jennysival.nookapp.ui.gyroids.model.UiVariation
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 class GyroidsVariationAdapter(
-    private var gyroid: UiGyroidsModel,
     private var variationList: MutableList<UiVariation>,
-    private val onCheckClick: (gyroid: UiGyroidsModel, position: Int) -> Unit
+    private val onCheckClick: (variation: UiVariation) -> Unit
 ) : RecyclerView.Adapter<GyroidsVariationAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: GyroidItemBinding) :
@@ -42,7 +40,7 @@ class GyroidsVariationAdapter(
                         }
 
                     })
-                binding.ivGyroid.contentDescription = variation.variation
+                binding.ivGyroid.contentDescription = variation.variationName
             } else {
                 binding.ivCheck.visibility = View.GONE
                 binding.ivGyroid.visibility = View.GONE
@@ -70,8 +68,14 @@ class GyroidsVariationAdapter(
 
         holder.binding.ivCheck.setOnClickListener {
             gyroidVariation.gotVariation = !gyroidVariation.gotVariation
-            onCheckClick(gyroid, position)
+            onCheckClick(gyroidVariation)
             notifyItemChanged(position)
         }
+    }
+
+    fun addVariationList(addedVariationList: MutableList<UiVariation>) {
+        variationList = addedVariationList
+
+        notifyDataSetChanged()
     }
 }

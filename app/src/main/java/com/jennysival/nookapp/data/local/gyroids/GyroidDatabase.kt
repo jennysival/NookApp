@@ -5,16 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [GyroidsEntity::class], version = 5)
-abstract class GyroidsDatabase : RoomDatabase() {
+@Database(entities = [DbGyroid::class, DbVariation::class], version = 1)
+abstract class GyroidDatabase : RoomDatabase() {
 
-    abstract fun gyroidsDao(): GyroidsDao
+    abstract fun gyroidDao(): GyroidDao
 
     companion object {
         @Volatile
-        private var INSTANCE: GyroidsDatabase? = null
+        private var INSTANCE: GyroidDatabase? = null
 
-        fun getGyroidsDatabase(context: Context): GyroidsDatabase {
+        fun getGyroidDatabase(context: Context): GyroidDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -22,8 +22,8 @@ abstract class GyroidsDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    GyroidsDatabase::class.java,
-                    "gyroids_database"
+                    GyroidDatabase::class.java,
+                    "gyroids_db"
                 ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

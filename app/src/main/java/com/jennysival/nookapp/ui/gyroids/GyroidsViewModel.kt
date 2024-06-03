@@ -21,9 +21,6 @@ class GyroidsViewModel(private val useCase: GyroidUseCase) : ViewModel() {
     private val _loadState = MutableLiveData<ViewState<Boolean>>()
     val loadState: LiveData<ViewState<Boolean>> = _loadState
 
-    private val _nameState = MutableLiveData<ViewState<String>>()
-    val nameState: LiveData<ViewState<String>> = _nameState
-
     fun getGyroidsFromDatabase() {
         _loadState.value = ViewState.Loading(true)
         viewModelScope.launch {

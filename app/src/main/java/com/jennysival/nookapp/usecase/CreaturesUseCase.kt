@@ -11,7 +11,9 @@ import com.jennysival.nookapp.repository.CreaturesRepository
 import com.jennysival.nookapp.ui.creatures.bugs.BugsUiModel
 import com.jennysival.nookapp.ui.creatures.fishes.FishesUiModel
 import com.jennysival.nookapp.ui.creatures.sea.SeaUiModel
+import com.jennysival.nookapp.utils.NOOKAPP_API_ERROR_MESSAGE
 import com.jennysival.nookapp.utils.ViewState
+import com.jennysival.nookapp.utils.mapper.CreaturesMapper
 
 class CreaturesUseCase(
     private val bugsDao: BugsDao,
@@ -21,30 +23,42 @@ class CreaturesUseCase(
     private val creaturesMapper: CreaturesMapper = CreaturesMapper()
     ) {
 
-    suspend fun getBugsApi() : ViewState<List<BugsUiModel>> {
+    private suspend fun getBugsApi() : ViewState<List<BugsUiModel>> {
         return try {
             val apiBugsList = creaturesRepository.getBugsApi()
-            insertBugsInDatabase(apiBugsList)
-            getBugsFromDatabase()
+            if (apiBugsList.isEmpty()) {
+                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
+            } else {
+                insertBugsInDatabase(apiBugsList)
+                getBugsFromDatabase()
+            }
         } catch (e: Exception) {
             ViewState.Error(Exception(e.message))
         }
     }
 
-    suspend fun getFishesFromApi() : ViewState<List<FishesUiModel>> {
+    private suspend fun getFishesFromApi() : ViewState<List<FishesUiModel>> {
         return try {
             val apiFishesList = creaturesRepository.getFishesApi()
-            insertFishesInDatabase(apiFishesList)
-            getFishesFromDatabase()
+            if (apiFishesList.isEmpty()) {
+                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
+            } else {
+                insertFishesInDatabase(apiFishesList)
+                getFishesFromDatabase()
+            }
         } catch (e: Exception) {
             ViewState.Error(Exception(e.message))
         }
     }
-    suspend fun getSeaFromApi() : ViewState<List<SeaUiModel>> {
+    private suspend fun getSeaFromApi() : ViewState<List<SeaUiModel>> {
         return try {
             val apiSeaList = creaturesRepository.getSeaApi()
-            insertSeaInDatabase(apiSeaList)
-            getSeaFromDatabase()
+            if (apiSeaList.isEmpty()) {
+                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
+            } else {
+                insertSeaInDatabase(apiSeaList)
+                getSeaFromDatabase()
+            }
         } catch (e: Exception) {
             ViewState.Error(Exception(e.message))
         }

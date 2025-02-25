@@ -1,11 +1,11 @@
-package com.jennysival.nookapp.usecase
+package com.jennysival.nookapp.utils.mapper
 
 import com.jennysival.nookapp.data.local.gyroids.DbVariation
 import com.jennysival.nookapp.data.local.gyroids.GyroidWithVariations
 import com.jennysival.nookapp.ui.gyroids.model.UiGyroidsModel
 import com.jennysival.nookapp.ui.gyroids.model.UiVariation
 
-class UiMapper {
+class UiGyroidMapper {
     fun mapDbToUi(dbList: List<GyroidWithVariations>): List<UiGyroidsModel> =
         dbList.map {
             UiGyroidsModel(

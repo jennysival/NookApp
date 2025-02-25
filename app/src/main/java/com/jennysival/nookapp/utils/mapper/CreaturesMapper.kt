@@ -1,4 +1,4 @@
-package com.jennysival.nookapp.usecase
+package com.jennysival.nookapp.utils.mapper
 
 import com.jennysival.nookapp.data.remote.bugs.BugsResponseItem
 import com.jennysival.nookapp.data.remote.fishes.FishesResponseItem

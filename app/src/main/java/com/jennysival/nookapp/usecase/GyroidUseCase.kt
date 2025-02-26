@@ -20,34 +20,6 @@ class GyroidUseCase(
     private val gyroidApiMapper: ApiToDbMapperGyroid = ApiToDbMapperGyroid()
 ) {
 
-    private suspend fun getGyroidsFromApi(): ViewState<List<UiGyroidsModel>> {
-        return try {
-            val gyroidsApiResponse = gyroidRepository.getGyroidsFromApi()
-            if (gyroidsApiResponse.isEmpty()) {
-                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
-            } else {
-                insertGyroidsInDatabase(gyroidsApiResponse)
-                getGyroidListFromDatabase()
-            }
-        } catch (e: Exception) {
-            ViewState.Error(Exception(e.message))
-        }
-    }
-
-    private suspend fun insertGyroidsInDatabase(apiList: List<ApiGyroidsResponseItem>) {
-        apiList.forEach { gyroid ->
-            val gyroidId =
-                gyroidRepository.insertGyroidInDatabase(gyroidApiMapper.mapApiToDbGyroid(gyroid))
-            gyroid.variations.forEach { apiVariation ->
-                val variation = gyroidApiMapper.mapApiToDbVariation(
-                    gyroidId = gyroidId,
-                    apiVariation = apiVariation
-                )
-                gyroidRepository.insertVariationInDatabase(variation)
-            }
-        }
-    }
-
     suspend fun getGyroidListFromDatabase(): ViewState<List<UiGyroidsModel>> {
         return try {
             val dbGyroidsList: List<GyroidWithVariations> =
@@ -81,5 +53,33 @@ class GyroidUseCase(
     }
 
     fun getRandomDialogue(): String = gyroidRepository.getRandomDialogue()
+
+    private suspend fun getGyroidsFromApi(): ViewState<List<UiGyroidsModel>> {
+        return try {
+            val gyroidsApiResponse = gyroidRepository.getGyroidsFromApi()
+            if (gyroidsApiResponse.isEmpty()) {
+                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
+            } else {
+                insertGyroidsInDatabase(gyroidsApiResponse)
+                getGyroidListFromDatabase()
+            }
+        } catch (e: Exception) {
+            ViewState.Error(Exception(e.message))
+        }
+    }
+
+    private suspend fun insertGyroidsInDatabase(apiList: List<ApiGyroidsResponseItem>) {
+        apiList.forEach { gyroid ->
+            val gyroidId =
+                gyroidRepository.insertGyroidInDatabase(gyroidApiMapper.mapApiToDbGyroid(gyroid))
+            gyroid.variations.forEach { apiVariation ->
+                val variation = gyroidApiMapper.mapApiToDbVariation(
+                    gyroidId = gyroidId,
+                    apiVariation = apiVariation
+                )
+                gyroidRepository.insertVariationInDatabase(variation)
+            }
+        }
+    }
 
 }

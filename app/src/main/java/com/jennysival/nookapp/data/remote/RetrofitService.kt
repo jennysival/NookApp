@@ -1,5 +1,6 @@
 package com.jennysival.nookapp.data.remote
 
+import com.jennysival.nookapp.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,7 +10,6 @@ import java.util.concurrent.TimeUnit
 class RetrofitService {
     companion object {
         const val BASE_URL = "https://api.nookipedia.com"
-        const val API_KEY = "REMOVIDO"
 
         private val retrofit: Retrofit by lazy {
 
@@ -18,10 +18,19 @@ class RetrofitService {
             httpClient.connectTimeout(30, TimeUnit.SECONDS)
             httpClient.writeTimeout(30, TimeUnit.SECONDS)
 
-            if (com.jennysival.nookapp.BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 val logInterceptor = HttpLoggingInterceptor()
                 logInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 httpClient.addInterceptor(logInterceptor)
+            }
+
+            httpClient.addInterceptor { chain ->
+                val original = chain.request()
+                val requestBuilder = original.newBuilder()
+                    .header("X-API-KEY", BuildConfig.API_KEY)
+                    .header("Accept-Version", "1.7.0")
+                val request = requestBuilder.build()
+                chain.proceed(request)
             }
 
             Retrofit.Builder()

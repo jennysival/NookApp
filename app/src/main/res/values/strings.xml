@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">NookApp</string>
+
+    <string name="title_nook_app">Nook App</string>
+    <string name="nookapp_conquistas">Conquistas</string>
+    <string name="nookapp_criaturas">Criaturas</string>
+
+    <string name="nookapp_insetos">Insetos</string>
+    <string name="nookapp_peixes">Peixes</string>
+    <string name="nookapp_marinhos">Animais Marinhos</string>
+    <string name="back_description">voltar para home</string>
+    <string name="checktextdescription">check</string>
+    <string name="squeakoidtext">squeakoid</string>
+    <string name="textdialogo">dialogo</string>
+    <string name="sampledialogue">Eu não me importaria em ver os outros tipos de gyroids que existem, então você quer guardar os seus aqui com os meus?</string>
+</resources>

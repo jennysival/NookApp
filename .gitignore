@@ -13,7 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-
-# Project exclude paths
-/app/
-/gradle/
+/.idea/stackspot_ai_project_state.xml

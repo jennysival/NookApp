@@ -23,57 +23,6 @@ class CreaturesUseCase(
     private val creaturesMapper: CreaturesMapper = CreaturesMapper()
     ) {
 
-    private suspend fun getBugsApi() : ViewState<List<BugsUiModel>> {
-        return try {
-            val apiBugsList = creaturesRepository.getBugsApi()
-            if (apiBugsList.isEmpty()) {
-                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
-            } else {
-                insertBugsInDatabase(apiBugsList)
-                getBugsFromDatabase()
-            }
-        } catch (e: Exception) {
-            ViewState.Error(Exception(e.message))
-        }
-    }
-
-    private suspend fun getFishesFromApi() : ViewState<List<FishesUiModel>> {
-        return try {
-            val apiFishesList = creaturesRepository.getFishesApi()
-            if (apiFishesList.isEmpty()) {
-                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
-            } else {
-                insertFishesInDatabase(apiFishesList)
-                getFishesFromDatabase()
-            }
-        } catch (e: Exception) {
-            ViewState.Error(Exception(e.message))
-        }
-    }
-    private suspend fun getSeaFromApi() : ViewState<List<SeaUiModel>> {
-        return try {
-            val apiSeaList = creaturesRepository.getSeaApi()
-            if (apiSeaList.isEmpty()) {
-                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
-            } else {
-                insertSeaInDatabase(apiSeaList)
-                getSeaFromDatabase()
-            }
-        } catch (e: Exception) {
-            ViewState.Error(Exception(e.message))
-        }
-    }
-
-    private suspend fun insertBugsInDatabase(bugsList: List<BugsResponseItem>) {
-        creaturesRepository.insertBugsDatabase(bugsList)
-    }
-    private suspend fun insertFishesInDatabase(fishesList: List<FishesResponseItem>) {
-        creaturesRepository.insertFishesDatabase(fishesList)
-    }
-    private suspend fun insertSeaInDatabase(seaList: List<SeaResponseItem>) {
-        creaturesRepository.insertSeaDatabase(seaList)
-    }
-
     suspend fun getBugsFromDatabase(): ViewState<List<BugsUiModel>> {
         return try {
             val bugsList = creaturesRepository.getBugsDatabase()
@@ -137,6 +86,57 @@ class CreaturesUseCase(
         } catch (e: SQLiteConstraintException) {
             ViewState.Error(Exception(e.message))
         }
+    }
+
+    private suspend fun getBugsApi() : ViewState<List<BugsUiModel>> {
+        return try {
+            val apiBugsList = creaturesRepository.getBugsApi()
+            if (apiBugsList.isEmpty()) {
+                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
+            } else {
+                insertBugsInDatabase(apiBugsList)
+                getBugsFromDatabase()
+            }
+        } catch (e: Exception) {
+            ViewState.Error(Exception(e.message))
+        }
+    }
+
+    private suspend fun getFishesFromApi() : ViewState<List<FishesUiModel>> {
+        return try {
+            val apiFishesList = creaturesRepository.getFishesApi()
+            if (apiFishesList.isEmpty()) {
+                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
+            } else {
+                insertFishesInDatabase(apiFishesList)
+                getFishesFromDatabase()
+            }
+        } catch (e: Exception) {
+            ViewState.Error(Exception(e.message))
+        }
+    }
+    private suspend fun getSeaFromApi() : ViewState<List<SeaUiModel>> {
+        return try {
+            val apiSeaList = creaturesRepository.getSeaApi()
+            if (apiSeaList.isEmpty()) {
+                ViewState.Error(Exception(NOOKAPP_API_ERROR_MESSAGE))
+            } else {
+                insertSeaInDatabase(apiSeaList)
+                getSeaFromDatabase()
+            }
+        } catch (e: Exception) {
+            ViewState.Error(Exception(e.message))
+        }
+    }
+
+    private suspend fun insertBugsInDatabase(bugsList: List<BugsResponseItem>) {
+        creaturesRepository.insertBugsDatabase(bugsList)
+    }
+    private suspend fun insertFishesInDatabase(fishesList: List<FishesResponseItem>) {
+        creaturesRepository.insertFishesDatabase(fishesList)
+    }
+    private suspend fun insertSeaInDatabase(seaList: List<SeaResponseItem>) {
+        creaturesRepository.insertSeaDatabase(seaList)
     }
 
     private fun mapBugsUiModel(apiBugsList: List<BugsResponseItem>): List<BugsUiModel> {

@@ -8,6 +8,9 @@ import com.jennysival.nookapp.ui.creatures.fishes.FishesUiModel
 import com.jennysival.nookapp.ui.creatures.sea.SeaUiModel
 import com.jennysival.nookapp.usecase.CreaturesUseCase
 import com.jennysival.nookapp.utils.ViewState
+import com.jennysival.nookapp.utils.mocks.bugsUiMock
+import com.jennysival.nookapp.utils.mocks.fishUiMock
+import com.jennysival.nookapp.utils.mocks.seaUiMock
 import io.mockk.Awaits
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
@@ -45,55 +48,6 @@ class CreaturesViewModelTest {
     @MockK
     private var loadObserver: Observer<ViewState<Boolean>> = mockk(relaxed = true)
 
-    private val bugsMock = BugsUiModel(
-        imageUrl = "",
-        location = "",
-        name = "",
-        number = 1,
-        rarity = "",
-        renderUrl = "",
-        sellFlick = 50,
-        sellNook = 20,
-        tankLength = 1,
-        tankWidth = 2,
-        totalCatch = 3,
-        url = "",
-        catchBug = true
-    )
-
-    private val fishMock = FishesUiModel(
-        imageUrl = "",
-        location = "",
-        name = "",
-        number = 1,
-        rarity = "",
-        renderUrl = "",
-        sellCj = 50,
-        sellNook = 20,
-        shadowSize = "",
-        tankLength = 1,
-        tankWidth = 2,
-        totalCatch = 3,
-        url = "",
-        catchFish = true
-    )
-
-    private val seaMock = SeaUiModel(
-        imageUrl = "",
-        name = "",
-        number = 1,
-        rarity = "",
-        renderUrl = "",
-        sellNook = 50,
-        shadowMovement = "",
-        shadowSize = "",
-        tankLength = 1,
-        tankWidth = 2,
-        totalCatch = 3,
-        url = "",
-        catchSea = true
-    )
-
     @Before
     fun setup() {
         MockKAnnotations.init(this)
@@ -113,7 +67,7 @@ class CreaturesViewModelTest {
     @Test
     fun `bugsListState should be Success when get bugs list from usecase`() {
         runBlocking {
-            val listMock = listOf(bugsMock)
+            val listMock = listOf(bugsUiMock)
 
             coEvery { mockUseCase.getBugsFromDatabase() } returns ViewState.Success(listMock)
             viewModel.bugsListState.observeForever(bugsListObserver)
@@ -141,9 +95,7 @@ class CreaturesViewModelTest {
     @Test
     fun `fishesListState should be Success when get fishes list from usecase`() {
         runBlocking {
-            val listMock = listOf(
-                fishMock
-            )
+            val listMock = listOf(fishUiMock)
 
             coEvery { mockUseCase.getFishesFromDatabase() } returns ViewState.Success(listMock)
             viewModel.fishesListState.observeForever(fishesListObserver)
@@ -171,9 +123,7 @@ class CreaturesViewModelTest {
     @Test
     fun `seaListState should be Success when get sea list from usecase`() {
         runBlocking {
-            val listMock = listOf(
-                seaMock
-            )
+            val listMock = listOf(seaUiMock)
 
             coEvery { mockUseCase.getSeaFromDatabase() } returns ViewState.Success(listMock)
             viewModel.seaListState.observeForever(seaListObserver)
@@ -201,7 +151,7 @@ class CreaturesViewModelTest {
     @Test
     fun `getBugsFromDatabase should update loadState`() {
         runBlocking {
-            val listMock = listOf(bugsMock)
+            val listMock = listOf(bugsUiMock)
             coEvery { mockUseCase.getBugsFromDatabase() } returns ViewState.Success(listMock)
             viewModel.loadState.observeForever(loadObserver)
 
@@ -216,9 +166,7 @@ class CreaturesViewModelTest {
     @Test
     fun `getFishesFromDatabase should update loadState`() {
         runBlocking {
-            val listMock = listOf(
-                fishMock
-            )
+            val listMock = listOf(fishUiMock)
             coEvery { mockUseCase.getFishesFromDatabase() } returns ViewState.Success(listMock)
             viewModel.loadState.observeForever(loadObserver)
 
@@ -233,9 +181,7 @@ class CreaturesViewModelTest {
     @Test
     fun `getSeaFromDatabase should update loadState`() {
         runBlocking {
-            val listMock = listOf(
-                seaMock
-            )
+            val listMock = listOf(seaUiMock)
             coEvery { mockUseCase.getSeaFromDatabase() } returns ViewState.Success(listMock)
             viewModel.loadState.observeForever(loadObserver)
 
@@ -250,66 +196,66 @@ class CreaturesViewModelTest {
     @Test
     fun `updateCatchBug should set correct params`() {
         runBlocking {
-            coEvery { mockUseCase.updateCatchBugs(bugsMock) } just Awaits
+            coEvery { mockUseCase.updateCatchBugs(bugsUiMock) } just Awaits
 
-            viewModel.updateCatchBug(bugsMock)
+            viewModel.updateCatchBug(bugsUiMock)
 
-            coVerify { mockUseCase.updateCatchBugs(bugsMock) }
+            coVerify { mockUseCase.updateCatchBugs(bugsUiMock) }
         }
     }
 
     @Test
     fun `updateCatchBug should throw Exception when fail to update database`() {
         runBlocking {
-            coEvery { mockUseCase.updateCatchBugs(bugsMock) } throws Exception("")
+            coEvery { mockUseCase.updateCatchBugs(bugsUiMock) } throws Exception("")
 
-            viewModel.updateCatchBug(bugsMock)
+            viewModel.updateCatchBug(bugsUiMock)
 
-            coVerify { mockUseCase.updateCatchBugs(bugsMock) }
+            coVerify { mockUseCase.updateCatchBugs(bugsUiMock) }
         }
     }
 
     @Test
     fun `updateCatchFish should set correct params`() {
         runBlocking {
-            coEvery { mockUseCase.updateCatchFish(fishMock) } just Awaits
+            coEvery { mockUseCase.updateCatchFish(fishUiMock) } just Awaits
 
-            viewModel.updateCatchFish(fishMock)
+            viewModel.updateCatchFish(fishUiMock)
 
-            coVerify { mockUseCase.updateCatchFish(fishMock) }
+            coVerify { mockUseCase.updateCatchFish(fishUiMock) }
         }
     }
 
     @Test
     fun `updateCatchFish should throw Exception when fail to update database`() {
         runBlocking {
-            coEvery { mockUseCase.updateCatchFish(fishMock) } throws Exception("")
+            coEvery { mockUseCase.updateCatchFish(fishUiMock) } throws Exception("")
 
-            viewModel.updateCatchFish(fishMock)
+            viewModel.updateCatchFish(fishUiMock)
 
-            coVerify { mockUseCase.updateCatchFish(fishMock) }
+            coVerify { mockUseCase.updateCatchFish(fishUiMock) }
         }
     }
 
     @Test
     fun `updateCatchSea should set correct params`() {
         runBlocking {
-            coEvery { mockUseCase.updateCatchSea(seaMock) } just Awaits
+            coEvery { mockUseCase.updateCatchSea(seaUiMock) } just Awaits
 
-            viewModel.updateCatchSea(seaMock)
+            viewModel.updateCatchSea(seaUiMock)
 
-            coVerify { mockUseCase.updateCatchSea(seaMock) }
+            coVerify { mockUseCase.updateCatchSea(seaUiMock) }
         }
     }
 
     @Test
     fun `updateCatchSea should throw Exception when fail to update database`() {
         runBlocking {
-            coEvery { mockUseCase.updateCatchSea(seaMock) } throws Exception("")
+            coEvery { mockUseCase.updateCatchSea(seaUiMock) } throws Exception("")
 
-            viewModel.updateCatchSea(seaMock)
+            viewModel.updateCatchSea(seaUiMock)
 
-            coVerify { mockUseCase.updateCatchSea(seaMock) }
+            coVerify { mockUseCase.updateCatchSea(seaUiMock) }
         }
     }
 }

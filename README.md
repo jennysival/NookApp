@@ -6,6 +6,8 @@
 
 NookApp é o guia essencial para jogadores de Animal Crossing: New Horizons no Nintendo Switch. Acompanhe suas coleções de itens, criaturas e gyroids, tudo na palma da sua mão, diretamente no seu celular Android.
 
+![Image](https://github.com/user-attachments/assets/c695e085-20e1-4611-8ffc-3dc53f83316a)
+
 **Recursos Principais:**
 
 *   **Track de Coleções:** Acompanhe sua coleção de itens, criaturas e gyroids.

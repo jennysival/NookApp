@@ -36,3 +36,4 @@ NookApp é o guia essencial para jogadores de Animal Crossing: New Horizons no N
 **Contato:**
 
 [Jenny] - [jennydemelos@gmail.com]
+[Gabe] - [sival.gabriel@gmail.com]
